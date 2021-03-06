@@ -1,0 +1,5 @@
+#docker run command for training and evalutaing
+docker run --gpus all bert python /code/model_train.py
+
+#docker run command for predicting(actually using the model)
+docker run --gpus all bert python /code/model_predict.py
