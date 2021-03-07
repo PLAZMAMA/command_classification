@@ -37,8 +37,7 @@ class Model:
         encoder_inputs = self.preprocessor(text_input)
         encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_base/2", trainable=True)
         outputs = encoder(encoder_inputs)
-        net = tf.keras.layers.Dense(outputs['pooled_output'].shape[1], activation='relu', dtype=tf.float32)(outputs['pooled_output'])
-        net = tf.keras.layers.Dropout(0.1)(net)
+        net = tf.keras.layers.Dropout(0.1)(outputs['pooled_output'])
         net = tf.keras.layers.Dense(1, dtype=tf.float32)(net)
         self.model = tf.keras.Model(text_input, net)
 
