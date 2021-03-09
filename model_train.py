@@ -1,5 +1,9 @@
 import tensorflow as tf
+import numpy as np
 import tensorflow_hub as hub
+import tensorflow_text as text
+import pandas as pd
+from sklearn.utils import shuffle
 
 # def build_model(max_len=512):
 #     """build the model"""
@@ -41,14 +45,39 @@ class Model:
         net = tf.keras.layers.Dense(1, dtype=tf.float32)(net)
         self.model = tf.keras.Model(text_input, net)
 
-    def train(self, train_data, test_labels, init_lr=0.001, epochs=5):
+    def train(self, train_data, train_labels, init_lr=0.001, epochs=5):
+        """trains the model using the data given"""
         pass
 
     def evaluate(self, test_data, test_labels):
+        """evaluates the model given the test data and labels"""
         pass
-        
-
 
 if __name__ == '__main__':
+
+    #creating instance of the model class to be used later and a train_portion for later use 
     model = Model()
-    tf.keras.utils.plot_model(model)
+    train_portion = 0.9 #how much of the data will go into training(0-1)
+
+    #fetching the data from the csv files
+    notes_data = pd.read_csv('notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
+    calories_data = pd.read_csv('calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
+
+    #labeling and combining the data together
+    data = np.array(notes_data.tolist() + calories_data.tolist(), dtype=np.str)
+    labels = np.array(np.ones(notes_data.shape).tolist() + np.zeros(calories_data.shape).tolist())
+
+    #mixing/shuffling the data the data
+    shuffled_data, shuffled_labels = shuffle(data, labels)
+
+    #split the data into train and test data
+    train_data = shuffled_data[:len(shuffled_data)]
+    train_labels = shuffled_labels[:len(shuffled_labels)]
+    test_data = shuffled_data[len(shuffled_data)+1:]
+    test_labels = shuffled_labels[len(shuffled_labels)+1:]
+
+    #training the model(only the output layer currently will be trained)
+    model.train(train_data, train_labels)
+
+    #evaulating the model
+    model.evaluate(test_data, test_labels)
