@@ -45,13 +45,14 @@ class Model:
         net = tf.keras.layers.Dense(1, dtype=tf.float32)(net)
         self.model = tf.keras.Model(text_input, net)
 
-    def train(self, train_data, train_labels, init_lr=0.001, epochs=5):
+    def train(self, train_data, train_labels, epochs=5):
         """trains the model using the data given"""
-        pass
+        self.model.compile(loss='mean_squared_error', optimizer='adam')
+        self.model.fit(train_data, train_labels, epochs=epochs)
 
     def evaluate(self, test_data, test_labels):
         """evaluates the model given the test data and labels"""
-        pass
+        self.model.evaluate(test_data, test_labels)
 
 if __name__ == '__main__':
 
