@@ -8,5 +8,7 @@ WORKDIR /code
 RUN pip install --upgrade pip
 RUN pip install --upgrade tensorflow-hub
 RUN pip install tensorflow_text
+RUN pip install pandas
+RUN pip install -U scikit-learn
 
 ADD . /code/
