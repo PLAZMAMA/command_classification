@@ -11,7 +11,7 @@ class Model:
         encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_base/2")
         outputs = encoder(encoder_inputs)
         net = tf.keras.layers.Dense(256)(outputs['pooled_output'])
-        net = tf.keras.layers.Dropout(0.1)(net)
+        net = tf.keras.layers.Dropout(0.3)(net)
         net = tf.keras.layers.Dense(2, activation='softmax', dtype=tf.float32)(net)
         self.model = tf.keras.Model(text_input, net)
 
