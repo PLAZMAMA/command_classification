@@ -21,11 +21,11 @@ if __name__ == '__main__':
     shuffled_data, shuffled_labels = shuffle(data, labels)
 
     #split the data into train and test data
-    train_test_mark = int(len(shuffled_data) * train_portion) #the index where the test data start and the training data stops
-    train_data = shuffled_data[:train_test_mark]
-    train_labels = shuffled_labels[:train_test_mark]
-    test_data = shuffled_data[train_test_mark + 1:]
-    test_labels = shuffled_labels[train_test_mark + 1:]
+    train_test_index = int(len(shuffled_data) * train_portion) #the index where the test data start and the training data stops
+    train_data = shuffled_data[:train_test_index]
+    train_labels = shuffled_labels[:train_test_index]
+    test_data = shuffled_data[train_test_index + 1:]
+    test_labels = shuffled_labels[train_test_index + 1:]
 
     #training the model(only the output layer currently will be trained)
     model.train(train_data, train_labels)
