@@ -9,9 +9,9 @@ if __name__ == '__main__':
     train_portion = 0.9 #how much of the data will go into training(0-1)
 
     #fetching the data from the csv files
-    notes_data = pd.read_csv('notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
-    calories_data = pd.read_csv('calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
-    smp_data = pd.read_csv('smp.csv')['commands'].to_numpy(dtype=np.str)
+    notes_data = pd.read_csv('data/notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
+    calories_data = pd.read_csv('data/calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
+    smp_data = pd.read_csv('data/smp.csv')['commands'].to_numpy(dtype=np.str)
 
     #labeling and combining the data together
     data = np.array(notes_data.tolist() + calories_data.tolist() + smp_data.tolist(), dtype=np.str)
