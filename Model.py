@@ -10,6 +10,7 @@ class Model:
     trained = False
 
     def __init__(self):
+        #model arcitecture(creating an instance of a keras model using the defined layers)
         text_input = tf.keras.layers.Input(shape=(), dtype=tf.string, name='text')
         encoder_inputs = self.preprocessor(text_input)
         encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_base/2")
@@ -18,19 +19,34 @@ class Model:
         net = tf.keras.layers.Dropout(0.3)(net)
         net = tf.keras.layers.Dense(3, activation='softmax', dtype=tf.float32)(net)
         self.model = tf.keras.Model(text_input, net)
+    
+    def get_next_file_name(self):
+        """gets the next number that should be used for the model name"""
+        #getting all the file names from the models directory
+        file_names = os.listdir(os.path.join(os.pardir, '/code/models'))
+
+        #loop that goes throught each file name and its characters and get the largest file number
+        next_model_num = 0
+        for file_name in file_names:
+            ending_point = len(file_name)-1
+            while(file_name[ending_point] != '_'):
+                ending_point -= 1
+
+            if int(file_name[5:ending_point]) > next_model_num:
+                next_model_num = int(file_name[5:ending_point])
+        
+        return next_model_num + 1
+
 
     def train(self, train_data, train_labels, epochs=5):
         """trains the model using the data given"""
-        file_names = os.listdir(os.path.join(os.pardir, '/code/models'))
-        print(file_names)
-        model_num = 0
-        for file_name in file_names:
-            ending_point = len(file)-1
-            for char in file
-            if file[5:]
+        #getting the next number that the model should be saved as
+        next_model_num = self.get_next_file_name()
+                
+        #giving the preprocessor the data, compiling the model and training it
         encoder_inputs = self.preprocessor(train_data)
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-        tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch:02d}.hdf5'), save_best_only=True)
+        tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}_{epoch:02d}.hdf5'), save_best_only=True)
         self.model.fit(train_data, train_labels, batch_size=16, epochs=epochs)
         trained = True
 
