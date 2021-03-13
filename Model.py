@@ -26,16 +26,18 @@ class Model:
         file_names = os.listdir(os.path.join(os.pardir, '/code/models'))
 
         #loop that goes throught each file name and its characters and get the largest file number
-        next_model_num = 0
+        biggest_model_num = 0
         for file_name in file_names:
             ending_point = len(file_name)-1
+
+            #gets the ending point of the model number
             while(file_name[ending_point] != '_'):
                 ending_point -= 1
 
-            if int(file_name[5:ending_point]) > next_model_num:
-                next_model_num = int(file_name[5:ending_point])
+            if int(file_name[5:ending_point]) > biggest_model_num:
+                biggest_model_num = int(file_name[5:ending_point])
         
-        return next_model_num + 1
+        return biggest_model_num + 1
 
 
     def train(self, train_data, train_labels, epochs=5):
