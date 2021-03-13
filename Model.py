@@ -45,12 +45,10 @@ class Model:
         #getting the next number that the model should be saved as
         next_model_num = self.get_next_file_name()
                 
-        #giving the preprocessor the data, compiling the model, 
         #creating a model check point which creates checkpoints and saves them at each epoch, and also training it
-        encoder_inputs = self.preprocessor(train_data)
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-        tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}' + '_{epoch:03d}.hdf5'), save_best_only=True)
-        self.model.fit(encoder_inputs, train_labels, batch_size=16, epochs=epochs)
+        tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}' + '_{epoch:02d}.hdf5'), save_best_only=True)
+        self.model.fit(train_data, train_labels, batch_size=16, epochs=epochs)
         trained = True
 
     def evaluate(self, test_data, test_labels):
