@@ -65,7 +65,7 @@ class Model:
                 model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}.hdf5'))
 
             except Exception as e:
-                raise Exception()
+                raise Exception('model number or epoch is not in the models folder')
 
             result = model.predict(prediction_data)
 
