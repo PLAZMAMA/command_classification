@@ -68,6 +68,7 @@ class Model:
             prediction_output can be either class which means that the output will be a string name of the class,
             or array which means that the output will be an array with the size of the number of classes and contains floats
         """
+        #trying to load the model if a model number given or using the instance model and predicting the output of the given data
         if model_num:
             try:
                 model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}.hdf5'))
@@ -83,6 +84,7 @@ class Model:
         else:
             raise RuntimeError('"model num" argument was not passed and this instance of the model class hasnt run the train function')
         
+        #handling the different options of the format the output should be returned as
         if prediction_output == 'class':
             return self.classes[np.argmax(result)]
         
