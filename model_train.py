@@ -33,8 +33,3 @@ if __name__ == '__main__':
 
     #evaulating the model
     model.evaluate(test_data, test_labels)
-
-    #used for mostly copying the newly created models inside the container into the host
-    while(True):
-        print('please kill the container or do any operations needed after training the model')
-        sleep(5)
