@@ -61,8 +61,13 @@ class Model:
         results = self.model.evaluate(test_data, test_labels, batch_size=16)
         print(f'Total Loss: {results[0]}, Total Accuracy: {results[1] * 100}%')
     
-    def predict(self, prediction_data, model_num=None, epoch=5):
-        """uses the model to predict/classify which class the prediction data falls into"""
+    def predict(self, prediction_data, prediction_output='class', model_num=None, epoch=5):
+        """
+        uses the model to predict/classify which class the prediction data falls into
+        prediction_output: 'class'|'array'
+            prediction_output can be either class which means that the output will be a string name of the class,
+            or array which means that the output will be an array with the size of the number of classes and contains floats
+        """
         if model_num:
             try:
                 model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}.hdf5'))
