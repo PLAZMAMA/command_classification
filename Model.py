@@ -47,8 +47,8 @@ class Model:
                 
         #creating a model check point which creates checkpoints and saves them at each epoch, and also training it
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-        tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}' + '_{epoch:02d}-{val_loss:.2f}.hdf5'), save_best_only=True)
-        self.model.fit(train_data, train_labels, batch_size=16, epochs=epochs)
+        model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}' + '_{epoch:02d}-{loss:.2f}.hdf5'), save_best_only=True, monitor='loss')
+        self.model.fit(train_data, train_labels, batch_size=16, epochs=epochs, callbacks=model_checkpoint_callback)
         trained = True
 
     def evaluate(self, test_data, test_labels):
