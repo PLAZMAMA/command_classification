@@ -2,6 +2,7 @@ from Model import Model
 import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
+from time import sleep
 
 if __name__ == '__main__':
     #creating instance of the model class to be used later and a train_portion for later use 
@@ -32,3 +33,8 @@ if __name__ == '__main__':
 
     #evaulating the model
     model.evaluate(test_data, test_labels)
+
+    #used for mostly copying the newly created models inside the container into the host
+    while(True):
+        print('please kill the container or do any operations needed after training the model')
+        sleep(5)
