@@ -82,5 +82,12 @@ class Model:
 
         else:
             raise RuntimeError('"model num" argument was not passed and this instance of the model class hasnt run the train function')
-
-        return self.classes[np.argmax(result)]
+        
+        if prediction_output == 'class':
+            return self.classes[np.argmax(result)]
+        
+        elif prediction_output == 'array':
+            return result
+        
+        else:
+            raise RuntimeError('"prediction_output" argument wasnt given one of the two options listed in the function description')
