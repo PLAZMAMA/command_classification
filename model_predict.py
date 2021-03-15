@@ -1,4 +1,5 @@
 import tensorflow as tf
+import tensorflow_hub as hub
 from Model import Model
 import sys
 
@@ -8,7 +9,8 @@ import sys
 if __name__ == '__main__':
     #loading the model from the given model name in the command line argument that was given when running this file
     try:
-        model = Model(tf.keras.load_model(f'models/{sys.argv[1]}'))
+        model = Model(tf.keras.models.load_model(f'models/{sys.argv[1]}', custom_objects={'KerasLayer': hub.KerasLayer}))
+
     except Exception as e:
         raise Exception('command line argument was not given(the model name was not given, please put the name of the file that the script should use)')
 
