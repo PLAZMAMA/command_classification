@@ -61,7 +61,7 @@ class Model:
         results = self.model.evaluate(test_data, test_labels, batch_size=16)
         print(f'Total Loss: {results[0]}, Total Accuracy: {results[1] * 100}%')
     
-    def predict(self, prediction_data, prediction_output='class', model_num=None, epoch=5):
+    def predict(self, prediction_data, prediction_output='class', model_num=None, loss=None, epoch=5):
         """
         uses the model to predict/classify which class the prediction data falls into
         prediction_output: 'class'|'array'
@@ -71,7 +71,10 @@ class Model:
         #trying to load the model if a model number given or using the instance model and predicting the output of the given data
         if model_num:
             try:
-                model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}.hdf5'))
+                if epoch < 10:
+                    model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_0{epoch}-.hdf5'))
+                else:
+                    model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}-.hdf5'))
 
             except Exception as e:
                 raise Exception('model number or epoch is not in the models folder')
