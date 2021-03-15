@@ -78,7 +78,7 @@ class Model:
 
             result = model.predict(prediction_data)
 
-        elif trained:
+        elif self.trained:
             result = self.model.predict(prediction_data)
 
         else:
