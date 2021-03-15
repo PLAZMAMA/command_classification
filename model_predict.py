@@ -12,7 +12,7 @@ if __name__ == '__main__':
         model = Model(tf.keras.models.load_model(f'models/{sys.argv[1]}', custom_objects={'KerasLayer': hub.KerasLayer}))
 
     except Exception as e:
-        raise Exception('command line argument was not given(the model name was not given, please put the name of the file that the script should use)')
+        raise Exception('command line argument was not given or the model name that was given was not found in the folder')
 
     #while loop that checks for when the prediction_input file gets updated,
     #then, it takes it text, cleans the file and prints the prediction to the screen
@@ -20,4 +20,4 @@ if __name__ == '__main__':
         with open('prediction_input.txt', 'r') as f:
             sentence = f.read()
             if len(sentence) > 0:
-                print(model.predict(sentence, model_num=1))
+                print(model.predict(sentence))
