@@ -69,7 +69,7 @@ class Model:
             or array which means that the output will be an array with the size of the number of classes and contains floats
         """
         #getting the prediction of the given data by calling the current model
-        result = self.model.predict(prediction_data)
+        result = self.model.predict([prediction_data])
 
         #handling the different options of the format the output should be returned as
         if prediction_output == 'class':
