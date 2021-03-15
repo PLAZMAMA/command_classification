@@ -10,7 +10,7 @@ if __name__ == '__main__':
     try:
         model = Model(tf.keras.load_model(f'models/{sys.argv[1]}'))
     except Exception as e:
-        raise Exception('command line argument was not given')
+        raise Exception('command line argument was not given(the model name was not given, please put the name of the file that the script should use)')
 
     #while loop that checks for when the prediction_input file gets updated,
     #then, it takes it text, cleans the file and prints the prediction to the screen
