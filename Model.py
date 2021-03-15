@@ -61,32 +61,16 @@ class Model:
         results = self.model.evaluate(test_data, test_labels, batch_size=16)
         print(f'Total Loss: {results[0]}, Total Accuracy: {results[1] * 100}%')
     
-    def predict(self, prediction_data, prediction_output='class', model_num=None, loss=None, epoch=5):
+    def predict(self, prediction_data, prediction_output='class'):
         """
-        uses the model to predict/classify which class the prediction data falls into
+        uses the current model to predict/classify which class the prediction data falls into
         prediction_output: 'class'|'array'
             prediction_output can be either class which means that the output will be a string name of the class,
             or array which means that the output will be an array with the size of the number of classes and contains floats
         """
-        #trying to load the model if a model number given or using the instance model and predicting the output of the given data
-        if model_num:
-            try:
-                if epoch < 10:
-                    model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_0{epoch}-.hdf5'))
-                else:
-                    model = tf.keras.models.load_model(os.path.join(os.pardir, f'/code/models/bert_{model_num}_{epoch}-.hdf5'))
+        #getting the prediction of the given data by calling the current model
+        result = self.model.predict(prediction_data)
 
-            except Exception as e:
-                raise Exception('model number or epoch is not in the models folder')
-
-            result = model.predict(prediction_data)
-
-        elif self.trained:
-            result = self.model.predict(prediction_data)
-
-        else:
-            raise RuntimeError('"model num" argument was not passed and this instance of the model class hasnt run the train function')
-        
         #handling the different options of the format the output should be returned as
         if prediction_output == 'class':
             return self.classes[np.argmax(result)]
