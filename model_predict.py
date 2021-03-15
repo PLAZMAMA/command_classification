@@ -20,4 +20,4 @@ if __name__ == '__main__':
         with open('prediction_input.txt', 'r') as f:
             sentence = f.read()
             if len(sentence) > 0:
-                print(model.predict(sentence))
+                print(model.predict(sentence, model_num=1))
