@@ -17,6 +17,7 @@ if __name__ == '__main__':
     #while loop that checks for when the prediction_input file gets updated,
     #then, it takes it text, cleans the file and prints the prediction to the screen
     while(True):
-        with open('prediction_input.txt', 'r') as sentence:
+        with open('prediction_input.txt', 'r') as f:
+            sentence = f.read()
             if len(sentence) > 0:
                 print(model.predict(sentence))
