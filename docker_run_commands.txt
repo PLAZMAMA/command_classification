@@ -2,4 +2,4 @@
 docker run -v "$(pwd)"/models:/code/models:Z --gpus all bert python /code/model_train.py
 
 #docker run command for predicting(actually using the model)
-docker run -v "$(pwd)"/prediction_input.txt:/code/prediction_input.txt:Z --gpus all bert python /code/model_predict.py
+docker run -v "$(pwd)"/prediction_input.txt:/code/prediction_input.txt:Z --gpus all bert python /code/model_predict.py <model_file>
