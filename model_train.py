@@ -12,11 +12,11 @@ if __name__ == '__main__':
     #fetching the data from the csv files
     notes_data = pd.read_csv('data/notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
     calories_data = pd.read_csv('data/calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
-    smp_data = pd.read_csv('data/smp.csv')['commands'].to_numpy(dtype=np.str)
+    random_data = pd.read_csv('data/random.csv')['commands'].to_numpy(dtype=np.str)
 
     #labeling and combining the data together
-    data = np.array(notes_data.tolist() + calories_data.tolist() + smp_data.tolist(), dtype=np.str)
-    labels = np.array([[1, 0, 0]] * notes_data.shape[0] + [[0, 1, 0]] * calories_data.shape[0] + [[0, 0, 1]] * smp_data.shape[0])
+    data = np.array(notes_data.tolist() + calories_data.tolist() + random_data.tolist(), dtype=np.str)
+    labels = np.array([[1, 0, 0]] * notes_data.shape[0] + [[0, 1, 0]] * calories_data.shape[0] + [[0, 0, 1]] * random_data.shape[0])
 
     #mixing/shuffling the data the data
     shuffled_data, shuffled_labels = shuffle(data, labels)
