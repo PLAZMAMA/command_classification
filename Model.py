@@ -45,7 +45,7 @@ class Model:
         return biggest_model_num + 1
 
 
-    def train(self, train_data, train_labels, epochs=5):
+    def train(self, train_data, train_labels, epochs=5, batch_size=16):
         """trains the model using the data given"""
         #getting the next number that the model should be saved as
         next_model_num = self.get_next_file_name()
@@ -53,12 +53,12 @@ class Model:
         #creating a model check point which creates checkpoints and saves them at each epoch, and also training it
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(os.path.join(os.pardir, f'/code/models/bert_{next_model_num}' + '_{epoch:02d}-{loss:.2f}.hdf5'), save_best_only=True, monitor='loss')
-        self.model.fit(train_data, train_labels, batch_size=16, epochs=epochs, callbacks=model_checkpoint_callback)
+        self.model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, callbacks=model_checkpoint_callback)
         trained = True
 
-    def evaluate(self, test_data, test_labels):
+    def evaluate(self, test_data, test_labels, batch_size=16):
         """evaluates the model given the test data and labels"""
-        results = self.model.evaluate(test_data, test_labels, batch_size=16)
+        results = self.model.evaluate(test_data, test_labels, batch_size=batch_size)
         print(f'Total Loss: {results[0]}, Total Accuracy: {results[1] * 100}%')
     
     def predict(self, prediction_data, prediction_output='class'):
