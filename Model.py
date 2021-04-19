@@ -9,7 +9,7 @@ class Model:
     classes = ['notes command', 'calories command', 'random']
     trained = False
 
-    def __init__(self, model=None):
+    def __init__(self, model=None, model_size='base'):
         #checking if a model was given and loading the given model or creating a model with random weights(which usually is used for training)
         if model:
             self.model = model
@@ -18,7 +18,7 @@ class Model:
             #model arcitecture(creating an instance of a keras model using the defined layers)
             text_input = tf.keras.layers.Input(shape=(), dtype=tf.string, name='text')
             encoder_inputs = self.preprocessor(text_input)
-            encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_base/2")
+            encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_{model_size}/3")
             outputs = encoder(encoder_inputs)
             net = tf.keras.layers.Dense(256)(outputs['pooled_output'])
             net = tf.keras.layers.Dropout(0.3)(net)
