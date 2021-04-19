@@ -6,12 +6,12 @@ from time import sleep
 
 if __name__ == '__main__':
     #creating instance of the model class to be used later and a train_portion for later use 
-    model = Model()
+    model = Model(model_size='base')
     train_portion = 0.9 #how much of the data will go into training(0-1)
 
     #fetching the data from the csv files
-    notes_data = pd.read_csv('data/notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
-    calories_data = pd.read_csv('data/calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
+    notes_data = pd.read_csv('data/shorter_new_notes_data.csv')['notes commands'].to_numpy(dtype=np.str)
+    calories_data = pd.read_csv('data/shorter_new_calories_data.csv', delimiter=',')['calories commands'].to_numpy(dtype=np.str)
     random_data = pd.read_csv('data/random.csv')['commands'].to_numpy(dtype=np.str)
 
     #labeling and combining the data together
