@@ -18,7 +18,7 @@ class Model:
             #model arcitecture(creating an instance of a keras model using the defined layers)
             text_input = tf.keras.layers.Input(shape=(), dtype=tf.string, name='text')
             encoder_inputs = self.preprocessor(text_input)
-            encoder = hub.KerasLayer("https://tfhub.dev/tensorflow/albert_en_{model_size}/3")
+            encoder = hub.KerasLayer(f'https://tfhub.dev/tensorflow/albert_en_{model_size}/3')
             outputs = encoder(encoder_inputs)
             net = tf.keras.layers.Dense(256)(outputs['pooled_output'])
             net = tf.keras.layers.Dropout(0.3)(net)
