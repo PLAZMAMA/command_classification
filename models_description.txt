@@ -1,0 +1,6 @@
+bert_1: 
+bert_2: 
+bert_3: base albert model trained on the generated dataset with less length restriction, end results: 88% acc, 0.36 loss
+bert_4: base albert model trained on the generated dataset with the more restriction, end results: 96%  acc, 0.11 loss
+bert_5: xlarge albert model trained on the generated dataset with less length restriction, end results: 71% acc, 0.71 loss
+bert_6: xlarge albert model trained on the generated dataset with the more restriction, end results: 57% acc, 0.87 loss
